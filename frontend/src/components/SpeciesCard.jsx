@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
+import { getSpeciesImageUrl } from '../utils/speciesImageMap';
 
 function SpeciesCard({ species }) {
   const protocolPreview = (species.protocol || '').split('\n').filter(Boolean).slice(0, 2).join(' ');
+  const imageUrl = getSpeciesImageUrl(species);
 
   return (
     <Link
@@ -9,7 +11,7 @@ function SpeciesCard({ species }) {
       className="group glass page-enter overflow-hidden rounded-2xl transition duration-300 hover:-translate-y-1"
     >
       <img
-        src={species.image_url || 'https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=1200&q=80'}
+        src={imageUrl}
         alt={species.scientific_name}
         className="h-44 w-full object-cover transition duration-500 group-hover:scale-105"
       />

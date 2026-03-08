@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { getSpeciesById } from '../services/speciesService';
+import { getSpeciesImageUrl } from '../utils/speciesImageMap';
 
 function SpeciesDetail() {
   const { id } = useParams();
@@ -28,7 +29,7 @@ function SpeciesDetail() {
 
       {species && (
         <article className="glass page-enter grid gap-8 rounded-3xl p-7 md:grid-cols-2">
-          <img src={species.image_url} alt={species.scientific_name} className="h-80 w-full rounded-2xl object-cover" />
+          <img src={getSpeciesImageUrl(species)} alt={species.scientific_name} className="h-80 w-full rounded-2xl object-cover" />
           <div className="space-y-3">
             <h1 className="font-['Sora'] text-3xl font-bold text-ink">{species.scientific_name}</h1>
             <p className="text-slate-600">{species.description}</p>
