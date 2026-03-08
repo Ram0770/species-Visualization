@@ -9,7 +9,7 @@ function LandingPage() {
             Educational Research Platform
           </p>
           <h1 className="font-['Sora'] text-4xl font-extrabold leading-tight text-ink md:text-5xl">
-            SpeciesVision
+            Bacterial Species Vision
           </h1>
           <p className="mt-4 text-slate-600">
             Web-Based Species and Space Protocol Visualization System with image-centric bacterial species discovery.

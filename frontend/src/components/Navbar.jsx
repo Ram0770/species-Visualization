@@ -13,7 +13,7 @@ function Navbar() {
   return (
     <header className="glass sticky top-4 z-20 mx-auto mb-8 flex w-full max-w-7xl items-center justify-between rounded-2xl px-6 py-4">
       <Link to="/dashboard" className="font-['Sora'] text-xl font-bold text-ink">
-        SpeciesVision
+        Bacterial Species Vision
       </Link>
       <nav className="flex items-center gap-3 text-sm font-semibold">
         <Link to="/dashboard" className="rounded-xl px-3 py-2 text-slate-700 transition hover:bg-white/80">
