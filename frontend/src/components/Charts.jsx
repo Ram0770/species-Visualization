@@ -14,53 +14,62 @@ import {
   YAxis,
 } from 'recharts';
 
-const colors = ['#56c7ff', '#44d7b6', '#ff8f5a', '#6da3ff', '#ffc857', '#3dd5f3'];
+const colors = ['#0ea5e9', '#14b8a6', '#f97316', '#2563eb', '#f59e0b', '#8b5cf6'];
+
+const chartSurface = {
+  background: 'linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,255,255,0.72))',
+  borderRadius: '30px',
+  boxShadow: '0 22px 60px rgba(15,23,42,0.09)',
+};
 
 function Charts({ stats }) {
   return (
     <div className="grid gap-6 lg:grid-cols-2">
-      <section className="glass rounded-2xl p-5">
-        <h3 className="mb-4 font-['Sora'] text-lg font-bold">Species Discovered Per Year</h3>
-        <div className="h-72">
+      <section className="glass rounded-[30px] p-6">
+        <p className="section-kicker mb-3">Bar Analysis</p>
+        <h3 className="mb-4 text-2xl font-bold text-slate-950">Species discovered per year</h3>
+        <div className="h-80 p-3" style={chartSurface}>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={stats.perYear}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="year" />
-              <YAxis />
-              <Tooltip />
+              <CartesianGrid strokeDasharray="2 6" stroke="rgba(148,163,184,0.28)" />
+              <XAxis dataKey="year" tick={{ fill: '#475569', fontSize: 12 }} axisLine={false} tickLine={false} />
+              <YAxis tick={{ fill: '#475569', fontSize: 12 }} axisLine={false} tickLine={false} />
+              <Tooltip contentStyle={{ borderRadius: 18, borderColor: 'rgba(226,232,240,0.9)' }} />
               <Legend />
-              <Bar dataKey="count" fill="#56c7ff" radius={[8, 8, 0, 0]} />
+              <Bar dataKey="count" fill="#0ea5e9" radius={[12, 12, 4, 4]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
       </section>
 
-      <section className="glass rounded-2xl p-5">
-        <h3 className="mb-4 font-['Sora'] text-lg font-bold">Top Scientists Contribution</h3>
-        <div className="h-72">
+      <section className="glass rounded-[30px] p-6">
+        <p className="section-kicker mb-3">Contribution View</p>
+        <h3 className="mb-4 text-2xl font-bold text-slate-950">Top scientists contribution</h3>
+        <div className="h-80 p-3" style={chartSurface}>
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
-              <Pie data={stats.topScientists} dataKey="count" nameKey="scientist" outerRadius={100} label>
+              <Pie data={stats.topScientists} dataKey="count" nameKey="scientist" outerRadius={108} innerRadius={48} paddingAngle={4} label>
                 {stats.topScientists.map((entry, index) => (
                   <Cell key={entry.scientist} fill={colors[index % colors.length]} />
                 ))}
               </Pie>
-              <Tooltip />
+              <Tooltip contentStyle={{ borderRadius: 18, borderColor: 'rgba(226,232,240,0.9)' }} />
             </PieChart>
           </ResponsiveContainer>
         </div>
       </section>
 
-      <section className="glass rounded-2xl p-5 lg:col-span-2">
-        <h3 className="mb-4 font-['Sora'] text-lg font-bold">Recently Added Species Timeline</h3>
-        <div className="h-72">
+      <section className="glass rounded-[30px] p-6 lg:col-span-2">
+        <p className="section-kicker mb-3">Timeline View</p>
+        <h3 className="mb-4 text-2xl font-bold text-slate-950">Recently added species timeline</h3>
+        <div className="h-80 p-3" style={chartSurface}>
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={stats.recentlyAdded.map((item, idx) => ({ ...item, order: idx + 1 }))}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="scientific_name" />
-              <YAxis allowDecimals={false} />
-              <Tooltip />
-              <Line type="monotone" dataKey="order" stroke="#ff8f5a" strokeWidth={3} />
+              <CartesianGrid strokeDasharray="2 6" stroke="rgba(148,163,184,0.28)" />
+              <XAxis dataKey="scientific_name" tick={{ fill: '#475569', fontSize: 12 }} axisLine={false} tickLine={false} />
+              <YAxis allowDecimals={false} tick={{ fill: '#475569', fontSize: 12 }} axisLine={false} tickLine={false} />
+              <Tooltip contentStyle={{ borderRadius: 18, borderColor: 'rgba(226,232,240,0.9)' }} />
+              <Line type="monotone" dataKey="order" stroke="#f97316" strokeWidth={4} dot={{ r: 5, fill: '#f97316' }} activeDot={{ r: 7 }} />
             </LineChart>
           </ResponsiveContainer>
         </div>

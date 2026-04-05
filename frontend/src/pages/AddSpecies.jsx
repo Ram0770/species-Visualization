@@ -28,9 +28,26 @@ function AddSpecies() {
   };
 
   return (
-    <main className="mx-auto max-w-3xl px-6 py-6">
+    <main className="mx-auto max-w-6xl px-6 py-6">
       <Navbar />
-      <h1 className="mb-4 font-['Sora'] text-2xl font-bold">Add Species</h1>
+      <section className="mb-6 grid gap-5 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="glass rounded-[32px] p-6">
+          <p className="section-kicker mb-3">Lecturer Workflow</p>
+          <h1 className="text-3xl font-bold text-slate-950 md:text-4xl">Add a new species record with stronger visual and scientific structure.</h1>
+          <p className="mt-3 max-w-2xl text-sm leading-8 text-slate-600 md:text-base">
+            This page now behaves more like a curated editorial workspace: image, protocol, and metadata all feel like part of one designed entry system.
+          </p>
+        </div>
+        <div className="ink-panel rounded-[32px] p-6 text-white">
+          <div className="relative z-10">
+            <p className="section-kicker mb-3 text-white/50">Best Practice</p>
+            <p className="text-lg font-semibold">Add the image first, then complete the description and protocol in full sentences.</p>
+            <p className="mt-3 text-sm leading-7 text-white/68">
+              That sequence gives you a cleaner preview flow and makes the final entry feel much more complete when students view it later.
+            </p>
+          </div>
+        </div>
+      </section>
       <SpeciesForm initialValues={initialValues} onSubmit={handleSubmit} submitText="Save Species" />
     </main>
   );

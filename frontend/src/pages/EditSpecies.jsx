@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import CustomSelect from '../components/CustomSelect';
 import Navbar from '../components/Navbar';
 import SpeciesForm from '../components/SpeciesForm';
 import { deleteSpecies, getSpecies, updateSpecies } from '../services/speciesService';
@@ -63,25 +64,32 @@ function EditSpecies() {
     setSelectedId(data.data[0] ? String(data.data[0].id) : '');
   };
 
-  return (
-    <main className="mx-auto max-w-4xl px-6 py-6">
-      <Navbar />
-      <h1 className="mb-4 font-['Sora'] text-2xl font-bold">Edit Species</h1>
+  const speciesOptions = speciesList.map((item) => ({
+    value: String(item.id),
+    label: item.scientific_name,
+  }));
 
-      <div className="glass mb-5 rounded-2xl p-4">
-        <label className="mb-2 block text-sm font-semibold text-slate-700">Select Species</label>
-        <select
-          value={selectedId}
-          onChange={(e) => setSelectedId(e.target.value)}
-          className="w-full rounded-xl border border-white/30 bg-white/70 px-4 py-3"
-        >
-          {speciesList.map((item) => (
-            <option key={item.id} value={item.id}>
-              {item.scientific_name}
-            </option>
-          ))}
-        </select>
-      </div>
+  return (
+    <main className="mx-auto max-w-6xl px-6 py-6">
+      <Navbar />
+      <section className="mb-6 grid gap-5 lg:grid-cols-[1.02fr_0.98fr]">
+        <div className="glass rounded-[32px] p-6">
+          <p className="section-kicker mb-3">Lecturer Editor</p>
+          <h1 className="text-3xl font-bold text-slate-950 md:text-4xl">Edit species records in a workspace built for curation, not just data entry.</h1>
+          <p className="mt-3 max-w-2xl text-sm leading-8 text-slate-600 md:text-base">
+            Choose a species, refine the image and scientific information, then update the record with a single controlled save action.
+          </p>
+        </div>
+        <div className="glass rounded-[32px] p-6">
+          <label className="section-kicker mb-3 block">Select species</label>
+          <CustomSelect
+            value={selectedId}
+            options={speciesOptions}
+            onChange={setSelectedId}
+            placeholder="Choose a species"
+          />
+        </div>
+      </section>
 
       {selected && (
         <>
@@ -89,7 +97,7 @@ function EditSpecies() {
           <button
             type="button"
             onClick={handleDelete}
-            className="mt-4 rounded-xl bg-red-500 px-4 py-2 text-sm font-semibold text-white"
+            className="mt-5 rounded-[22px] bg-rose-600 px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(225,29,72,0.18)] transition hover:bg-rose-700"
           >
             Delete Species
           </button>
