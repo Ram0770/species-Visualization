@@ -71,13 +71,7 @@ VALUES
 ('/species-images/Acetobacter aceti.jpeg','Acetobacter aceti','Bacterium responsible for converting alcohol into acetic acid in vinegar production.',1864,'Louis Pasteur','Fermentation vessels and sugary liquids','Domain: Bacteria; Phylum: Proteobacteria; Class: Alphaproteobacteria'),
 ('/species-images/Nitrosomonas europaea.jpeg','Nitrosomonas europaea','Important bacterium in the nitrogen cycle that converts ammonia into nitrite.',1890,'Sergei Winogradsky','Soil and aquatic nitrifying systems','Domain: Bacteria; Phylum: Proteobacteria; Class: Betaproteobacteria')
 ON DUPLICATE KEY UPDATE
-  description = VALUES(description),
-  year_found = VALUES(year_found),
-  scientist_name = VALUES(scientist_name),
-  habitat = VALUES(habitat),
-  classification = VALUES(classification),
-  image_url = VALUES(image_url),
-  updated_at = CURRENT_TIMESTAMP;
+  scientific_name = scientific_name;
 
 UPDATE species
 SET protocol = 'Species protocol is not documented yet for this record.'
@@ -117,4 +111,5 @@ SET protocol = 'Escherichia coli Laboratory Preparation - Educational Explanatio
 7. Storage and Maintenance
 - After growth, bacteria may be preserved for future use.
 - Preservation supports repeatable educational and research workflows.'
-WHERE scientific_name = 'Escherichia coli';
+WHERE scientific_name = 'Escherichia coli'
+  AND (protocol IS NULL OR protocol = '' OR protocol = 'Species protocol is not documented yet for this record.');
