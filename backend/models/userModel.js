@@ -1,32 +1,52 @@
-const pool = require('../config/db');
+const User = require('./User');
 
 const findByEmail = async (email) => {
-  const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
-  return rows[0] || null;
+  const user = await User.findOne({ email: String(email).trim().toLowerCase() }).lean();
+  if (!user) return null;
+
+  return {
+    id: user._id.toString(),
+    full_name: user.fullName,
+    email: user.email,
+    role: user.role,
+    password_hash: user.passwordHash,
+    google_id: user.googleId,
+    created_at: user.createdAt,
+    updated_at: user.updatedAt,
+  };
 };
 
 const findSafeById = async (id) => {
-  const [rows] = await pool.query(
-    'SELECT id, full_name, email, role, created_at FROM users WHERE id = ?',
-    [id]
-  );
-  return rows[0] || null;
+  const user = await User.findById(id).lean();
+  if (!user) return null;
+
+  return {
+    id: user._id.toString(),
+    full_name: user.fullName,
+    email: user.email,
+    role: user.role,
+    created_at: user.createdAt,
+  };
 };
 
 const createLocalUser = async ({ fullName, email, role, passwordHash }) => {
-  const [result] = await pool.query(
-    'INSERT INTO users (full_name, email, role, password_hash) VALUES (?, ?, ?, ?)',
-    [fullName, email, role, passwordHash]
-  );
-  return result.insertId;
+  const user = await User.create({
+    fullName,
+    email,
+    role,
+    passwordHash,
+  });
+  return user._id.toString();
 };
 
 const createGoogleUser = async ({ fullName, email, role, googleId }) => {
-  const [result] = await pool.query(
-    'INSERT INTO users (full_name, email, role, google_id) VALUES (?, ?, ?, ?)',
-    [fullName, email, role, googleId]
-  );
-  return result.insertId;
+  const user = await User.create({
+    fullName,
+    email,
+    role,
+    googleId,
+  });
+  return user._id.toString();
 };
 
 module.exports = {

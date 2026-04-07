@@ -49,6 +49,9 @@ const register = async (req, res, next) => {
       userId,
     });
   } catch (error) {
+    if (error.code === 11000) {
+      return res.status(409).json({ message: 'Email is already registered' });
+    }
     return next(error);
   }
 };
@@ -143,6 +146,9 @@ const googleAuth = async (req, res, next) => {
       },
     });
   } catch (error) {
+    if (error.code === 11000) {
+      return res.status(409).json({ message: 'Email is already registered' });
+    }
     return res.status(401).json({ message: 'Google authentication failed', error: error.message });
   }
 };

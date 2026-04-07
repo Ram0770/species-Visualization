@@ -1,0 +1,433 @@
+const makeProtocol = ({
+  scientificName,
+  strainPurpose,
+  mediumDetails,
+  sterileFocus,
+  inoculationStep,
+  growthConditions,
+  monitoringPoints,
+  storageStep,
+}) => `${scientificName} Laboratory Preparation - Educational Explanation
+
+1. Selection of Strain
+- Scientists first choose a suitable ${scientificName} strain.
+- Different strains are selected depending on ${strainPurpose}.
+- Lab strains are chosen to support safe and repeatable study.
+
+2. Preparation of Nutrient Environment
+- ${scientificName} requires an appropriate nutrient environment before culture begins.
+- Scientists prepare media containing ${mediumDetails}.
+- This environment supports controlled multiplication and observation.
+
+3. Sterile Laboratory Conditions
+- All instruments, containers, and media are kept sterile.
+- ${sterileFocus}
+- This helps researchers maintain a pure culture.
+
+4. Introduction of Bacteria into Growth Environment
+- Scientists transfer the organism into the prepared medium using aseptic technique.
+- ${inoculationStep}
+- This step begins the growth cycle under controlled conditions.
+
+5. Controlled Growth Conditions
+- ${growthConditions}
+- Researchers maintain suitable temperature, moisture, and nutrient availability.
+- These conditions support stable and measurable development.
+
+6. Monitoring Growth
+- Scientists observe ${monitoringPoints}.
+- Observations confirm successful growth and culture quality.
+- Any unusual change can indicate contamination or stress conditions.
+
+7. Storage and Maintenance
+- ${storageStep}
+- Proper storage allows the culture to be reused for teaching, testing, or later experiments.
+- Maintenance procedures help preserve strain quality over time.`;
+
+const defaultSpeciesData = [
+  {
+    imageUrl: '/species-images/Escherichia coli.jpeg',
+    scientificName: 'Escherichia coli',
+    description:
+      'A rod-shaped bacterium commonly found in the intestines of humans and animals. Widely used in biotechnology and genetic engineering research.',
+    protocol: makeProtocol({
+      scientificName: 'Escherichia coli',
+      strainPurpose: 'genetic engineering, protein production, and research studies',
+      mediumDetails: 'energy sources, nitrogen compounds, minerals, vitamins, and water',
+      sterileFocus: 'Sterility prevents contamination from unwanted microbes.',
+      inoculationStep: 'This allows bacteria to begin multiplying in a predictable environment.',
+      growthConditions: 'E. coli grows best under warm temperatures and can grow with or without oxygen depending on the experimental setup.',
+      monitoringPoints: 'colony formation, growth speed, physical characteristics, and culture purity',
+      storageStep: 'After growth, bacteria may be preserved for future use in educational and laboratory workflows.',
+    }),
+    yearFound: 1885,
+    scientistName: 'Theodor Escherich',
+    habitat: 'Intestinal tract of humans and animals',
+    classification: 'Domain: Bacteria; Phylum: Proteobacteria; Class: Gammaproteobacteria',
+  },
+  {
+    imageUrl: '/species-images/Bacillus subtilis.jpeg',
+    scientificName: 'Bacillus subtilis',
+    description: 'A Gram-positive soil bacterium known for enzyme production and spore formation.',
+    protocol: makeProtocol({
+      scientificName: 'Bacillus subtilis',
+      strainPurpose: 'enzyme production, sporulation studies, and laboratory teaching',
+      mediumDetails: 'carbon sources, nitrogen compounds, trace minerals, salts, and water',
+      sterileFocus: 'Sterility is especially important because environmental Bacillus species are common in soil samples.',
+      inoculationStep: 'Scientists inoculate the organism into broth or agar to begin vegetative growth before sporulation studies.',
+      growthConditions: 'Bacillus subtilis grows well under warm aerobic conditions and is often cultured where oxygen is available.',
+      monitoringPoints: 'colony texture, spore formation, growth density, and culture purity',
+      storageStep: 'Cultures are preserved on slants, refrigerated media, or frozen stocks for later enzyme and genetics work.',
+    }),
+    yearFound: 1835,
+    scientistName: 'Christian Gottfried Ehrenberg',
+    habitat: 'Soil and plant rhizosphere',
+    classification: 'Domain: Bacteria; Phylum: Firmicutes; Class: Bacilli',
+  },
+  {
+    imageUrl: '/species-images/Staphylococcus epidermidis.jpeg',
+    scientificName: 'Staphylococcus epidermidis',
+    description: 'A bacterium commonly found on human skin and studied in skin microbiology.',
+    protocol: makeProtocol({
+      scientificName: 'Staphylococcus epidermidis',
+      strainPurpose: 'skin microbiology, biofilm studies, and educational isolation work',
+      mediumDetails: 'peptides, salts, carbon sources, vitamins, and sterile water',
+      sterileFocus: 'Sterility prevents accidental mixing with other skin-associated microbes.',
+      inoculationStep: 'The culture is transferred into nutrient media to support gentle laboratory growth and observation.',
+      growthConditions: 'This species grows best in warm, moist, nutrient-rich environments under standard laboratory incubation.',
+      monitoringPoints: 'colony appearance, surface growth, pigmentation, and biofilm-related characteristics',
+      storageStep: 'Prepared cultures are maintained under refrigeration or frozen stock conditions for later comparison studies.',
+    }),
+    yearFound: 1884,
+    scientistName: 'Friedrich Julius Rosenbach',
+    habitat: 'Human skin and mucous membranes',
+    classification: 'Domain: Bacteria; Phylum: Firmicutes; Class: Bacilli',
+  },
+  {
+    imageUrl: '/species-images/Pseudomonas fluorescens.jpeg',
+    scientificName: 'Pseudomonas fluorescens',
+    description: 'Soil bacterium producing fluorescent pigments used in environmental studies.',
+    protocol: makeProtocol({
+      scientificName: 'Pseudomonas fluorescens',
+      strainPurpose: 'pigment analysis, environmental microbiology, and soil research',
+      mediumDetails: 'carbon substrates, nitrogen sources, mineral salts, moisture, and growth-supporting trace elements',
+      sterileFocus: 'Sterility is required so pigment production can be studied without interference from competing organisms.',
+      inoculationStep: 'Researchers inoculate sterile media to encourage fluorescent metabolite production during growth.',
+      growthConditions: 'The bacterium grows under aerobic conditions with suitable temperature and nutrient availability, often showing pigment production clearly.',
+      monitoringPoints: 'fluorescent pigment formation, colony spread, growth rate, and purity',
+      storageStep: 'Cultures are preserved for repeated environmental tests and classroom demonstrations of bacterial fluorescence.',
+    }),
+    yearFound: 1895,
+    scientistName: 'Walter Migula',
+    habitat: 'Soil and water',
+    classification: 'Domain: Bacteria; Phylum: Proteobacteria; Class: Gammaproteobacteria',
+  },
+  {
+    imageUrl: '/species-images/Lactobacillus acidophilus.jpeg',
+    scientificName: 'Lactobacillus acidophilus',
+    description: 'A probiotic bacterium found in the digestive system and dairy products.',
+    protocol: makeProtocol({
+      scientificName: 'Lactobacillus acidophilus',
+      strainPurpose: 'probiotic studies, fermentation research, and microbiology teaching',
+      mediumDetails: 'sugars, amino acids, vitamins, minerals, and moisture suited to lactic acid bacteria',
+      sterileFocus: 'Sterility keeps the culture free from yeast and other fermenting contaminants.',
+      inoculationStep: 'The bacterium is introduced into selective nutrient media that support lactic acid bacterial growth.',
+      growthConditions: 'This organism prefers warm nutrient-rich conditions and grows well in media suited for acid-producing bacteria.',
+      monitoringPoints: 'acid production, colony growth, turbidity, and characteristic culture behavior',
+      storageStep: 'Cultures are preserved carefully to maintain viability for probiotic and fermentation demonstrations.',
+    }),
+    yearFound: 1900,
+    scientistName: 'Ernst Moro',
+    habitat: 'Digestive tract and fermented dairy',
+    classification: 'Domain: Bacteria; Phylum: Firmicutes; Class: Bacilli',
+  },
+  {
+    imageUrl: '/species-images/Rhizobium leguminosarum.jpeg',
+    scientificName: 'Rhizobium leguminosarum',
+    description: 'Soil bacterium forming symbiotic relationships with plant roots to fix nitrogen.',
+    protocol: makeProtocol({
+      scientificName: 'Rhizobium leguminosarum',
+      strainPurpose: 'symbiosis studies, nitrogen fixation research, and plant microbiology',
+      mediumDetails: 'balanced carbon sources, nitrogen-limited components, minerals, and water suitable for rhizobial growth',
+      sterileFocus: 'Sterility helps protect the culture from unrelated soil bacteria during root-association experiments.',
+      inoculationStep: 'Scientists transfer the bacterium into sterile media or plant-associated systems for controlled symbiosis experiments.',
+      growthConditions: 'Growth is supported under moderate temperatures and carefully prepared nutrient conditions used for rhizobial cultures.',
+      monitoringPoints: 'colony morphology, growth performance, root interaction behavior, and purity',
+      storageStep: 'Cultures are preserved to support repeated inoculation and educational plant-bacteria association experiments.',
+    }),
+    yearFound: 1889,
+    scientistName: 'Martinus Beijerinck',
+    habitat: 'Root nodules of legumes',
+    classification: 'Domain: Bacteria; Phylum: Proteobacteria; Class: Alphaproteobacteria',
+  },
+  {
+    imageUrl: '/species-images/Azotobacter chroococcum.jpeg',
+    scientificName: 'Azotobacter chroococcum',
+    description: 'Free-living nitrogen fixing bacterium that improves soil fertility.',
+    protocol: makeProtocol({
+      scientificName: 'Azotobacter chroococcum',
+      strainPurpose: 'soil fertility studies, nitrogen fixation experiments, and agricultural microbiology',
+      mediumDetails: 'carbon-rich nutrients, mineral salts, trace elements, and water with limited fixed nitrogen',
+      sterileFocus: 'Sterility is needed to avoid confusion with other nitrogen-transforming soil bacteria.',
+      inoculationStep: 'The bacterium is introduced into nitrogen-limited media to observe free-living fixation behavior.',
+      growthConditions: 'This species grows under aerobic conditions with access to sufficient carbon and moisture.',
+      monitoringPoints: 'surface growth, colony texture, growth rate, and experimental nitrogen-fixation performance',
+      storageStep: 'Cultures are stored for later soil inoculation studies and repeated laboratory comparisons.',
+    }),
+    yearFound: 1901,
+    scientistName: 'Martinus Beijerinck',
+    habitat: 'Agricultural soil',
+    classification: 'Domain: Bacteria; Phylum: Proteobacteria; Class: Gammaproteobacteria',
+  },
+  {
+    imageUrl: '/species-images/mycobacterium smegmatis.jpeg',
+    scientificName: 'Mycobacterium smegmatis',
+    description: 'Non-pathogenic bacterium used as a model organism in tuberculosis research.',
+    protocol: makeProtocol({
+      scientificName: 'Mycobacterium smegmatis',
+      strainPurpose: 'model-organism studies, teaching acid-fast concepts, and comparative mycobacterial research',
+      mediumDetails: 'specialized carbon sources, nitrogen compounds, salts, supplements, and sterile water',
+      sterileFocus: 'Strict sterile technique is necessary because this organism is used in controlled model-system research.',
+      inoculationStep: 'Scientists inoculate enriched media suited for mycobacterial growth and gradual colony development.',
+      growthConditions: 'This species grows under warm laboratory conditions but usually develops more slowly than many common bacteria.',
+      monitoringPoints: 'colony development, growth texture, culture purity, and expected laboratory characteristics',
+      storageStep: 'Cultures are maintained carefully for later model-organism experiments and training activities.',
+    }),
+    yearFound: 1884,
+    scientistName: 'Albert Lehmann & Rudolf Neumann',
+    habitat: 'Soil, water, and lab cultures',
+    classification: 'Domain: Bacteria; Phylum: Actinobacteria; Class: Actinobacteria',
+  },
+  {
+    imageUrl: '/species-images/Clostridium sporogenes.jpeg',
+    scientificName: 'Clostridium sporogenes',
+    description: 'Anaerobic bacterium used to study fermentation and anaerobic metabolism.',
+    protocol: makeProtocol({
+      scientificName: 'Clostridium sporogenes',
+      strainPurpose: 'anaerobic metabolism studies, fermentation work, and spore-former demonstrations',
+      mediumDetails: 'reduced nutrient media, carbon sources, nitrogen compounds, minerals, and oxygen-limited conditions',
+      sterileFocus: 'Sterility is critical because anaerobic studies are easily disrupted by oxygen-tolerant contaminants.',
+      inoculationStep: 'The organism is transferred into anaerobic media using techniques that minimize oxygen exposure.',
+      growthConditions: 'Growth is maintained under strictly anaerobic conditions with suitable warmth and reduced media.',
+      monitoringPoints: 'gas production, colony changes, anaerobic growth pattern, and spore-related behavior',
+      storageStep: 'Cultures are maintained in oxygen-protected conditions for later fermentation and anaerobic metabolism studies.',
+    }),
+    yearFound: 1908,
+    scientistName: 'Ivan Hall',
+    habitat: 'Anaerobic soil and sediments',
+    classification: 'Domain: Bacteria; Phylum: Firmicutes; Class: Clostridia',
+  },
+  {
+    imageUrl: '/species-images/Lactococcus lactis.jpeg',
+    scientificName: 'Lactococcus lactis',
+    description: 'Bacterium widely used in dairy fermentation for cheese and yogurt production.',
+    protocol: makeProtocol({
+      scientificName: 'Lactococcus lactis',
+      strainPurpose: 'dairy fermentation studies, starter culture teaching, and food microbiology',
+      mediumDetails: 'sugars, peptides, minerals, vitamins, and moisture appropriate for lactic acid bacteria',
+      sterileFocus: 'Sterility prevents contamination that could alter fermentation outcomes.',
+      inoculationStep: 'Scientists inoculate milk-based or selective laboratory media to begin controlled fermentation.',
+      growthConditions: 'This species grows well in warm nutrient-rich conditions used for dairy starter cultures.',
+      monitoringPoints: 'acid development, milk or broth changes, colony formation, and culture consistency',
+      storageStep: 'Starter cultures are preserved for repeated educational fermentation experiments and comparative trials.',
+    }),
+    yearFound: 1873,
+    scientistName: 'Joseph Lister',
+    habitat: 'Milk and dairy processing environments',
+    classification: 'Domain: Bacteria; Phylum: Firmicutes; Class: Bacilli',
+  },
+  {
+    imageUrl: '/species-images/Micrococcus luteus.jpeg',
+    scientificName: 'Micrococcus luteus',
+    description: 'Yellow pigment producing bacterium found in air, soil, and skin.',
+    protocol: makeProtocol({
+      scientificName: 'Micrococcus luteus',
+      strainPurpose: 'pigment studies, environmental sampling, and introductory microbiology',
+      mediumDetails: 'basic nutrient sources, mineral salts, moisture, and oxygen-accessible culture media',
+      sterileFocus: 'Sterility is important because this species is often compared against mixed environmental samples.',
+      inoculationStep: 'The bacterium is transferred to sterile agar or broth so pigment and colony features can be observed clearly.',
+      growthConditions: 'This aerobic organism grows under standard warm laboratory conditions with adequate oxygen supply.',
+      monitoringPoints: 'yellow pigmentation, colony shape, surface growth, and culture purity',
+      storageStep: 'Cultures are stored for later environmental microbiology practice and pigment observation exercises.',
+    }),
+    yearFound: 1872,
+    scientistName: 'Ferdinand Cohn',
+    habitat: 'Airborne dust, soil, and skin',
+    classification: 'Domain: Bacteria; Phylum: Actinobacteria; Class: Actinobacteria',
+  },
+  {
+    imageUrl: '/species-images/Enterobacter aerogenes.jpeg',
+    scientificName: 'Enterobacter aerogenes',
+    description: 'Rod-shaped bacterium used in biochemical and microbiology studies.',
+    protocol: makeProtocol({
+      scientificName: 'Enterobacter aerogenes',
+      strainPurpose: 'biochemical testing, teaching metabolic diversity, and routine microbiology practice',
+      mediumDetails: 'general nutrient media with carbon sources, nitrogen compounds, salts, and water',
+      sterileFocus: 'Sterility helps maintain a single test organism during biochemical characterization.',
+      inoculationStep: 'Scientists inoculate broth or agar media before carrying out identification and metabolism-related tests.',
+      growthConditions: 'Growth is supported under standard laboratory temperatures with appropriate moisture and nutrients.',
+      monitoringPoints: 'colony development, biochemical test reactions, turbidity, and purity',
+      storageStep: 'Cultures are kept for later teaching exercises and comparative identification studies.',
+    }),
+    yearFound: 1896,
+    scientistName: 'Hormaeche & Edwards',
+    habitat: 'Soil, water, and intestinal tract',
+    classification: 'Domain: Bacteria; Phylum: Proteobacteria; Class: Gammaproteobacteria',
+  },
+  {
+    imageUrl: '/species-images/Proteus vulgaris.jpeg',
+    scientificName: 'Proteus vulgaris',
+    description: 'Motile bacterium known for swarming movement on surfaces.',
+    protocol: makeProtocol({
+      scientificName: 'Proteus vulgaris',
+      strainPurpose: 'motility studies, swarming observation, and comparative microbiology',
+      mediumDetails: 'general nutrient media, salts, moisture, and organic growth substrates',
+      sterileFocus: 'Sterility is crucial because spreading growth can quickly overtake contaminated media.',
+      inoculationStep: 'The culture is introduced carefully onto agar or broth to observe motility-related behavior.',
+      growthConditions: 'This species grows under warm nutrient-sufficient conditions and may display strong surface spreading.',
+      monitoringPoints: 'swarming patterns, colony spread, growth rate, and culture purity',
+      storageStep: 'Cultures are maintained for later demonstrations of bacterial motility and behavior on solid media.',
+    }),
+    yearFound: 1885,
+    scientistName: 'Gustav Hauser',
+    habitat: 'Intestinal tracts and moist environments',
+    classification: 'Domain: Bacteria; Phylum: Proteobacteria; Class: Gammaproteobacteria',
+  },
+  {
+    imageUrl: '/species-images/Serratia marcescens.jpeg',
+    scientificName: 'Serratia marcescens',
+    description: 'Bacterium famous for producing the red pigment prodigiosin.',
+    protocol: makeProtocol({
+      scientificName: 'Serratia marcescens',
+      strainPurpose: 'pigment research, environmental studies, and classroom demonstrations',
+      mediumDetails: 'nutrient media with carbon sources, nitrogen components, trace minerals, and water',
+      sterileFocus: 'Sterility ensures the red pigment response can be studied without contamination effects.',
+      inoculationStep: 'Scientists inoculate the organism into suitable media that support visible pigment production.',
+      growthConditions: 'Growth occurs under standard laboratory conditions, though pigment intensity may vary with temperature.',
+      monitoringPoints: 'red pigment production, colony form, culture density, and purity',
+      storageStep: 'Cultures are preserved for later visualization of pigment production and teaching demonstrations.',
+    }),
+    yearFound: 1819,
+    scientistName: 'Bartolomeo Bizio',
+    habitat: 'Water, soil, and damp surfaces',
+    classification: 'Domain: Bacteria; Phylum: Proteobacteria; Class: Gammaproteobacteria',
+  },
+  {
+    imageUrl: '/species-images/Klebsiella pneumoniae.jpeg',
+    scientificName: 'Klebsiella pneumoniae',
+    description: 'Capsule-forming bacterium studied for bacterial virulence.',
+    protocol: makeProtocol({
+      scientificName: 'Klebsiella pneumoniae',
+      strainPurpose: 'capsule studies, laboratory diagnostics, and virulence-related teaching',
+      mediumDetails: 'nutrient-rich media, carbon sources, salts, minerals, and moisture for consistent growth',
+      sterileFocus: 'Sterility prevents confusion during capsule and morphology observations.',
+      inoculationStep: 'Researchers introduce the bacterium into controlled media before carrying out capsule-focused observation.',
+      growthConditions: 'This organism grows well in warm nutrient-rich laboratory environments.',
+      monitoringPoints: 'mucoid colony appearance, growth density, capsule-associated features, and purity',
+      storageStep: 'Cultures are maintained carefully for later teaching and controlled laboratory investigations.',
+    }),
+    yearFound: 1882,
+    scientistName: 'Carl Friedlander',
+    habitat: 'Respiratory and intestinal environments',
+    classification: 'Domain: Bacteria; Phylum: Proteobacteria; Class: Gammaproteobacteria',
+  },
+  {
+    imageUrl: '/species-images/Bacillus megaterium.jpeg',
+    scientificName: 'Bacillus megaterium',
+    description: 'One of the largest bacteria used in biotechnology and enzyme production.',
+    protocol: makeProtocol({
+      scientificName: 'Bacillus megaterium',
+      strainPurpose: 'biotechnology research, enzyme studies, and large-cell bacterial observation',
+      mediumDetails: 'carbon-rich nutrients, nitrogen compounds, minerals, and sterile water',
+      sterileFocus: 'Sterility supports clean enzyme-production and morphology experiments.',
+      inoculationStep: 'The bacterium is transferred into prepared media for growth before biotechnology-related analysis.',
+      growthConditions: 'This aerobic species grows under warm, oxygen-rich, nutrient-supported laboratory conditions.',
+      monitoringPoints: 'cell density, colony characteristics, spore behavior, and culture purity',
+      storageStep: 'Cultures are preserved for repeated biotechnology demonstrations and laboratory comparisons.',
+    }),
+    yearFound: 1884,
+    scientistName: 'Anton de Bary',
+    habitat: 'Soil and marine sediments',
+    classification: 'Domain: Bacteria; Phylum: Firmicutes; Class: Bacilli',
+  },
+  {
+    imageUrl: '/species-images/Bacillus cereus.jpeg',
+    scientificName: 'Bacillus cereus',
+    description: 'Spore-forming bacterium studied in food microbiology.',
+    protocol: makeProtocol({
+      scientificName: 'Bacillus cereus',
+      strainPurpose: 'food microbiology, spore studies, and contamination-control teaching',
+      mediumDetails: 'general nutrient media, salts, moisture, and conditions that allow vegetative growth and sporulation',
+      sterileFocus: 'Sterility is needed because food-related spore-formers are common contaminants in many environments.',
+      inoculationStep: 'Scientists inoculate prepared media to observe growth and spore-forming behavior.',
+      growthConditions: 'This species grows under warm aerobic laboratory conditions with sufficient nutrients.',
+      monitoringPoints: 'colony growth, spore formation, surface texture, and culture purity',
+      storageStep: 'Cultures are maintained for repeated food microbiology demonstrations and controlled tests.',
+    }),
+    yearFound: 1887,
+    scientistName: 'Frankland & Frankland',
+    habitat: 'Soil and food processing systems',
+    classification: 'Domain: Bacteria; Phylum: Firmicutes; Class: Bacilli',
+  },
+  {
+    imageUrl: '/species-images/Pseudomonas putida.jpeg',
+    scientificName: 'Pseudomonas putida',
+    description: 'Soil bacterium capable of breaking down environmental pollutants.',
+    protocol: makeProtocol({
+      scientificName: 'Pseudomonas putida',
+      strainPurpose: 'bioremediation studies, environmental metabolism research, and teaching pollutant breakdown concepts',
+      mediumDetails: 'carbon sources, mineral salts, water, and sometimes selective substrates related to environmental metabolism',
+      sterileFocus: 'Sterility prevents mixed microbial growth from affecting biodegradation observations.',
+      inoculationStep: 'The bacterium is introduced into sterile media prepared for environmental metabolism or degradation studies.',
+      growthConditions: 'This aerobic organism grows under moderate temperatures with access to oxygen and suitable nutrient sources.',
+      monitoringPoints: 'growth pattern, substrate use, colony behavior, and culture purity',
+      storageStep: 'Cultures are stored for later environmental microbiology and biodegradation experiments.',
+    }),
+    yearFound: 1961,
+    scientistName: 'Mortimer Palleroni',
+    habitat: 'Soil and wastewater',
+    classification: 'Domain: Bacteria; Phylum: Proteobacteria; Class: Gammaproteobacteria',
+  },
+  {
+    imageUrl: '/species-images/Acetobacter aceti.jpeg',
+    scientificName: 'Acetobacter aceti',
+    description: 'Bacterium responsible for converting alcohol into acetic acid in vinegar production.',
+    protocol: makeProtocol({
+      scientificName: 'Acetobacter aceti',
+      strainPurpose: 'vinegar fermentation studies, acid production teaching, and industrial microbiology',
+      mediumDetails: 'ethanol-containing substrates, minerals, oxygen access, and water to support acetic acid production',
+      sterileFocus: 'Sterility prevents unwanted fermenters from changing acidification results.',
+      inoculationStep: 'Scientists inoculate the bacterium into media containing suitable substrates for acetic acid production.',
+      growthConditions: 'This aerobic species requires oxygen and appropriate substrate availability for efficient growth and acid production.',
+      monitoringPoints: 'acid development, surface growth, culture activity, and purity',
+      storageStep: 'Cultures are preserved for repeated fermentation demonstrations and industrial microbiology exercises.',
+    }),
+    yearFound: 1864,
+    scientistName: 'Louis Pasteur',
+    habitat: 'Fermentation vessels and sugary liquids',
+    classification: 'Domain: Bacteria; Phylum: Proteobacteria; Class: Alphaproteobacteria',
+  },
+  {
+    imageUrl: '/species-images/Nitrosomonas europaea.jpeg',
+    scientificName: 'Nitrosomonas europaea',
+    description: 'Important bacterium in the nitrogen cycle that converts ammonia into nitrite.',
+    protocol: makeProtocol({
+      scientificName: 'Nitrosomonas europaea',
+      strainPurpose: 'nitrification studies, environmental microbiology, and nitrogen-cycle teaching',
+      mediumDetails: 'inorganic nutrients, ammonia-containing substrates, mineral salts, and carefully controlled water chemistry',
+      sterileFocus: 'Sterility prevents other nitrogen-cycle microbes from interfering with nitrification observations.',
+      inoculationStep: 'The bacterium is introduced into selective media designed to support ammonia oxidation.',
+      growthConditions: 'This species grows under aerobic conditions with ammonia available as a key energy source.',
+      monitoringPoints: 'nitrite formation, slow growth progression, culture stability, and purity',
+      storageStep: 'Cultures are maintained for later nitrogen-cycle experiments and environmental laboratory study.',
+    }),
+    yearFound: 1890,
+    scientistName: 'Sergei Winogradsky',
+    habitat: 'Soil and aquatic nitrifying systems',
+    classification: 'Domain: Bacteria; Phylum: Proteobacteria; Class: Betaproteobacteria',
+  },
+];
+
+const protocolFallbackText = 'Species protocol is not documented yet for this record.';
+
+module.exports = { defaultSpeciesData, protocolFallbackText };

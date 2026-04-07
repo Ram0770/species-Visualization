@@ -53,7 +53,7 @@ const createSpecies = async (req, res, next) => {
 
     return res.status(201).json({ message: 'Species added successfully', data: created });
   } catch (error) {
-    if (error.code === 'ER_DUP_ENTRY') {
+    if (error.code === 11000) {
       return res.status(409).json({ message: 'A species with this scientific name already exists' });
     }
     return next(error);
@@ -78,7 +78,7 @@ const updateSpecies = async (req, res, next) => {
 
     return res.json({ message: 'Species updated successfully', data: updated });
   } catch (error) {
-    if (error.code === 'ER_DUP_ENTRY') {
+    if (error.code === 11000) {
       return res.status(409).json({ message: 'A species with this scientific name already exists' });
     }
     return next(error);

@@ -1,83 +1,96 @@
-const pool = require('../config/db');
+const Species = require('./Species');
+
+const mapSpecies = (species) => ({
+  id: species._id.toString(),
+  image_url: species.imageUrl,
+  scientific_name: species.scientificName,
+  description: species.description,
+  protocol: species.protocol,
+  year_found: species.yearFound,
+  scientist_name: species.scientistName,
+  habitat: species.habitat,
+  classification: species.classification,
+  created_at: species.createdAt,
+  updated_at: species.updatedAt,
+});
 
 const findAll = async (search = '') => {
-  const term = `%${String(search).trim()}%`;
-  const [rows] = await pool.query(
-    `SELECT id, image_url, scientific_name, description, protocol, year_found, scientist_name, habitat, classification, created_at, updated_at
-     FROM species
-     WHERE scientific_name LIKE ? OR scientist_name LIKE ? OR CAST(year_found AS CHAR) LIKE ?
-     ORDER BY created_at DESC`,
-    [term, term, term]
-  );
-  return rows;
+  const term = String(search).trim();
+  const query = term
+    ? {
+        $or: [
+          { scientificName: { $regex: term, $options: 'i' } },
+          { scientistName: { $regex: term, $options: 'i' } },
+          { yearFound: Number.isNaN(Number(term)) ? null : Number(term) },
+        ].filter(Boolean),
+      }
+    : {};
+
+  const rows = await Species.find(query).sort({ createdAt: -1 }).lean();
+  return rows.map(mapSpecies);
 };
 
 const findById = async (id) => {
-  const [rows] = await pool.query('SELECT * FROM species WHERE id = ?', [id]);
-  return rows[0] || null;
+  const species = await Species.findById(id).lean();
+  return species ? mapSpecies(species) : null;
 };
 
 const create = async ({ imageUrl, scientificName, description, protocol, yearFound, scientistName, habitat, classification }) => {
-  const [result] = await pool.query(
-    `INSERT INTO species (image_url, scientific_name, description, protocol, year_found, scientist_name, habitat, classification)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-    [
-      imageUrl || null,
-      scientificName.trim(),
-      description.trim(),
-      protocol.trim(),
-      Number(yearFound),
-      scientistName.trim(),
-      habitat.trim(),
-      classification.trim(),
-    ]
-  );
-  return result.insertId;
+  const species = await Species.create({
+    imageUrl: imageUrl || null,
+    scientificName: scientificName.trim(),
+    description: description.trim(),
+    protocol: protocol.trim(),
+    yearFound: Number(yearFound),
+    scientistName: scientistName.trim(),
+    habitat: habitat.trim(),
+    classification: classification.trim(),
+  });
+  return species._id.toString();
 };
 
 const updateById = async (id, { imageUrl, scientificName, description, protocol, yearFound, scientistName, habitat, classification }) => {
-  const [result] = await pool.query(
-    `UPDATE species
-     SET image_url = ?, scientific_name = ?, description = ?, protocol = ?, year_found = ?, scientist_name = ?, habitat = ?, classification = ?
-     WHERE id = ?`,
-    [
-      imageUrl || null,
-      scientificName.trim(),
-      description.trim(),
-      protocol.trim(),
-      Number(yearFound),
-      scientistName.trim(),
-      habitat.trim(),
-      classification.trim(),
-      id,
-    ]
+  const result = await Species.updateOne(
+    { _id: id },
+    {
+      imageUrl: imageUrl || null,
+      scientificName: scientificName.trim(),
+      description: description.trim(),
+      protocol: protocol.trim(),
+      yearFound: Number(yearFound),
+      scientistName: scientistName.trim(),
+      habitat: habitat.trim(),
+      classification: classification.trim(),
+    }
   );
-  return result.affectedRows;
+  return result.modifiedCount || result.matchedCount;
 };
 
 const deleteById = async (id) => {
-  const [result] = await pool.query('DELETE FROM species WHERE id = ?', [id]);
-  return result.affectedRows;
+  const result = await Species.deleteOne({ _id: id });
+  return result.deletedCount;
 };
 
 const stats = async () => {
-  const [[{ totalSpecies }]] = await pool.query('SELECT COUNT(*) AS totalSpecies FROM species');
-  const [perYear] = await pool.query(
-    'SELECT year_found AS year, COUNT(*) AS count FROM species GROUP BY year_found ORDER BY year_found ASC'
-  );
-  const [topScientists] = await pool.query(
-    `SELECT scientist_name AS scientist, COUNT(*) AS count
-     FROM species
-     GROUP BY scientist_name
-     ORDER BY count DESC, scientist_name ASC
-     LIMIT 5`
-  );
-  const [recentlyAdded] = await pool.query(
-    `SELECT id, scientific_name, created_at
-     FROM species
-     ORDER BY created_at DESC
-     LIMIT 5`
-  );
+  const totalSpecies = await Species.countDocuments();
+  const perYearRaw = await Species.aggregate([
+    { $group: { _id: '$yearFound', count: { $sum: 1 } } },
+    { $sort: { _id: 1 } },
+  ]);
+  const topScientistsRaw = await Species.aggregate([
+    { $group: { _id: '$scientistName', count: { $sum: 1 } } },
+    { $sort: { count: -1, _id: 1 } },
+    { $limit: 5 },
+  ]);
+  const recentRaw = await Species.find().sort({ createdAt: -1 }).limit(5).lean();
+
+  const perYear = perYearRaw.map((row) => ({ year: row._id, count: row.count }));
+  const topScientists = topScientistsRaw.map((row) => ({ scientist: row._id, count: row.count }));
+  const recentlyAdded = recentRaw.map((row) => ({
+    id: row._id.toString(),
+    scientific_name: row.scientificName,
+    created_at: row.createdAt,
+  }));
 
   return { totalSpecies, perYear, topScientists, recentlyAdded };
 };

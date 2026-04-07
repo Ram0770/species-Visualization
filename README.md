@@ -6,8 +6,6 @@ SpeciesVision is a production-ready full-stack bacterial species visualization p
 
 ```text
 Species Project/
-  database/
-    schema.sql
   backend/
     config/
     controllers/
@@ -36,16 +34,12 @@ Species Project/
     .env.example
 ```
 
-## 2. Database Schema and Seed Data
+## 2. Database and Seed Data
 
-1. The database definition is in `database/schema.sql`.
-2. It includes:
-   - `users` table
-   - `species` table
-   - Insert/upsert for 20 default bacterial species
-3. On backend startup, the server auto-runs `schema.sql` and seeds data.
+1. The runtime backend uses MongoDB.
+2. On backend startup, the server seeds the same 20 bacterial species on first startup if the collection is empty.
 
-## 3. Backend Setup (Node + Express + MySQL)
+## 3. Backend Setup (Node + Express + MongoDB)
 
 1. Go to backend:
 
@@ -66,7 +60,7 @@ cp .env.example .env
 ```
 
 4. Update `.env` values:
-   - MySQL credentials
+   - MongoDB connection string
    - JWT secret
    - Google client ID
    - Cloudinary keys
@@ -148,7 +142,7 @@ Frontend runs at `http://localhost:5173`.
    - Start command: `npm start`
    - Root directory: `backend`
 4. Add environment variables from `backend/.env.example`.
-5. Ensure your MySQL database is reachable from Render (Cloud SQL, Railway MySQL, Aiven, etc.).
+5. Ensure your MongoDB Atlas cluster is reachable from Render and `MONGO_URI` is set.
 
 ## 7. Vercel Deployment (Frontend)
 
@@ -166,6 +160,7 @@ Frontend runs at `http://localhost:5173`.
 - Lecturer-only routes are protected in frontend and backend.
 - Google accounts are auto-created on first sign-in.
 - If a species scientific name already exists, backend returns conflict.
+- Configure `MONGO_URI` for the backend database connection.
 - For permanent image storage across restarts/redeploys, configure Cloudinary in `backend/.env`:
   - `CLOUDINARY_CLOUD_NAME`
   - `CLOUDINARY_API_KEY`
